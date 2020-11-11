@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-class App extends React.Component<IAppProps, IAppState> {
-	constructor(props: IAppProps) {
+class App extends React.Component<IAppProps, IAppState> { // order is always props, state
+	constructor(props: IAppProps) { // props must be passed into constructor in class based components
 		super(props);
 		this.state = {
-			name: null
+			name: null // we know what it's going to be, but null is the absence of that value
 		};
 	}
 
@@ -27,7 +27,7 @@ class App extends React.Component<IAppProps, IAppState> {
 	}
 }
 
-export interface IAppProps {}
+export interface IAppProps {} // interface is a way to define a type
 
 export interface IAppState {
 	name: string;
