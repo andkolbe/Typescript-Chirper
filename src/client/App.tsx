@@ -1,63 +1,47 @@
 import * as React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import Admin from './views/Admin';
+import Home from './views/Home';
+import NewChirp from './views/NewChirp';
+import NotFound from './views/NotFound';
 
 class App extends React.Component<IAppProps, IAppState> { // order is always props, state
-	constructor(props: IAppProps) { // props must be passed into constructor in class based components
-		super(props);
-		this.state = {
-			name: null // we know what it's going to be, but null is the absence of that value
-		};
-	}
-
-	async componentDidMount() {
-		try {
-			let r = await fetch('/api/hello');
-			let name = await r.json();
-			this.setState({ name });
-		} catch (error) {
-			console.log(error);
-		}
-	}
 
 	render() {
 		return (
-			<main className="container my-5">
-				<h1 className="text-primary text-center">Hello {this.state.name}!</h1>
-			</main>
+			<BrowserRouter>
+				<NavBar />
+				<Switch>
+					<Route exact path='/' component={Home} />
+					<Route exact path='/chirp/add' component={NewChirp} />
+					<Route exact path='/chirp/:id/admin' component={Admin} />
+					<Route path='*' component={NotFound} />
+				</Switch>
+			</BrowserRouter>
 		);
 	}
 }
 
-export interface IAppProps {} // interface is a way to define a type
+// interface is a way to define a type
+interface IAppProps { } // this is blank because App in index.tsx is recieving no props
 
-export interface IAppState {
-	name: string;
-}
+interface IAppState { } // interfaces describes a component's props (if it has any)
 
 export default App;
 
-//
-// const App = (props: AppProps) => {
-// 	const [greeting, setGreeting] = React.useState<string>('');
+// BrowserRouter can be renamed anything
+// think of Switch like a switch board
+// Route is self closing
+// Route always has two props attached to it, path and component
+// path reads the url bar
+// you tell component which component you want to show up on the path
+// Route paths need to have the word exact or they will only route in alphbetical order
+// Link replaces any anchor or button element that has to lead you to a different page
+// Link needs to have a prop called 'to' that needs to a string of some kind
+// you can render NavBar above Switch. Switch acts like the body of the page
+// NavBar won't re render because it is above the Switch
 
-// 	React.useEffect(() => {
-// 		(async () => {
-// 			try {
-// 				const res = await fetch('/api/hello');
-// 				const greeting = await res.json();
-// 				setGreeting(greeting);
-// 			} catch (error) {
-// 				console.log(error);
-// 			}
-// 		})();
-// 	}, []);
+// hitting enter on a url bar executes a GET request to a server
 
-// 	return (
-// 		<div className="min-vh-100 d-flex justify-content-center align-items-center">
-// 			<h1 className="display-1">Hello {greeting}!</h1>
-// 		</div>
-// 	);
-// };
 
-// interface AppProps {}
-
-// export default App;

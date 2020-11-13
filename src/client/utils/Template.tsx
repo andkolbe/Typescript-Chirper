@@ -6,7 +6,7 @@ class Template extends React.Component<ITemplateProps, ITemplateState> {
             <div className="container">
                 <section className="row mt-3 justify-content-center">
                     <div className="col-12">
-                        <h1 className="text-center">Template View</h1>
+                        <h1 className="text-center">Template</h1>
                     </div>
                 </section>
             </div>
