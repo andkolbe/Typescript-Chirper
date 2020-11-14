@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IRawDataChirp } from '../../server/utils/chirpstore';
+import { RouteComponentProps} from 'react-router-dom';
 import Layout from '../components/Layout';
 
 class NewChirp extends React.Component<INewChirpProps, INewChirpState> {
@@ -22,28 +22,16 @@ class NewChirp extends React.Component<INewChirpProps, INewChirpState> {
 
     handleChirpSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => { // clicking on a button is a mouse event
         e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute
-        console.log({ name: this.state.name, text: this.state.text }); // try console logging before making the fetch request
-        const res = await fetch('/api/chirps', {
-            method: 'POST',
+        const res = await fetch('/api/chirp', {
+            method: 'POST', // this will default to GET unless you specify otherwise
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json' // kicks on express.json middleware
             },
-            body: JSON.stringify({ name: this.state.name, text: this.state.text })
+            body: JSON.stringify({ name: this.state.name, text: this.state.text }) // body = the json data you submitted
         })
-        this.setState({ name: '', text: ''}); // clears the forms after submitting data
-    }
-
-    componentDidMount() {
-        fetch('/apo/chirps', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: 'Odie',
-                text: 'I like to eat cat poop'
-            })
-        })
+        const serverResponse = await res.json();
+        console.log(serverResponse.msg); // this is the msg on the post route back in chirps.ts
+        this.props.history.push('/'); // this takes you back to the homepage after adding a new chirp
     }
 
     render() {
@@ -61,7 +49,7 @@ class NewChirp extends React.Component<INewChirpProps, INewChirpState> {
     }
 }
 
-interface INewChirpProps { }
+interface INewChirpProps extends RouteComponentProps{ } // extend RouteComponentProps to access history, location, and match
 interface INewChirpState {
     name: string;
     text: string;

@@ -3,7 +3,7 @@ import chirpsRouter from './chirps' // chirpsRouter can be called anything
 
 const router = Router(); // const router = express.Router();
 
-router.use('/chirps', chirpsRouter);
+router.use('/chirp/', chirpsRouter);
 
 export default router;
 

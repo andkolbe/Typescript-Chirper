@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom'
-import type { IRawDataChirp } from '../../server/utils/chirpstore'; // type means only import typescript data instead of compiled javascript. Easier on the system
+import type { IChirp } from '../../server/utils/chirpstore'; // type means only import typescript data instead of compiled javascript. Easier on the system
 import Layout from '../components/Layout';
 
 class Home extends React.Component<IHomeProps, IHomeState> { // order is always props, state
@@ -13,8 +13,8 @@ class Home extends React.Component<IHomeProps, IHomeState> { // order is always 
     }
 
     async componentDidMount() {
-        const res = await fetch('/api/chirps'); // fetch your list of chirps
-        const chirps: IRawDataChirp[] = await res.json(); // parse json to javascript
+        const res = await fetch('/api/chirp'); // fetch your list of chirps
+        const chirps: IChirp[] = await res.json(); // parse json to javascript
         this.setState({ chirps });
     }
 
@@ -28,7 +28,7 @@ class Home extends React.Component<IHomeProps, IHomeState> { // order is always 
                                 <h5 className="card-title">{chirp.name}</h5>
                                 <p className="card-text">{chirp.text}</p>
                                 <div className="d-flex justify-content-end">
-                                    <Link className="btn btn-outline-success" to="/chirp/:id/admin">Admin Options</Link>
+                                    <Link className="btn btn-outline-success" to={`/chirp/${chirp.id}/admin`}>Admin Options</Link>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@ class Home extends React.Component<IHomeProps, IHomeState> { // order is always 
 
 interface IHomeProps { }
 interface IHomeState {
-    chirps: IRawDataChirp[]; // this.state.chirps is an array of each individual chirps
+    chirps: IChirp[]; // this.state.chirps is an array of each individual chirps
 }
 
 export default Home;

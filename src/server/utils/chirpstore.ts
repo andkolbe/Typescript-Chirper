@@ -16,14 +16,14 @@ import * as fs from 'fs';
 
 // a type is just an interface with less options
 
-export interface IRawDataChirp { // each individual chirp
+export interface IChirp { // each individual chirp
     id: number;
     name: string;
     text: string;
 }
 
 export interface ChirpData { // the object that holds all of the chirps
-    [key: number]: IRawDataChirp; // key-value pair. The key is a number and the value is IChirp
+    [key: number]: IChirp; // key-value pair. The key is a number and the value is IRawChirpData
     nextid: number;
 }
 
@@ -41,12 +41,12 @@ let getChirp = (id: number) => {
     return Object.assign({}, chirps[id]); //create a copy and return it
 }
 
-let createChirp = (chirp: IRawDataChirp) => {
+let createChirp = (chirp: IChirp) => {
     chirps[chirps.nextid++] = chirp;
     writeChirps();
 };
 
-let updateChirp = (id: number, chirp: IRawDataChirp) => {
+let updateChirp = (id: number, chirp: IChirp) => {
     chirps[id] = chirp;
     writeChirps();
 }

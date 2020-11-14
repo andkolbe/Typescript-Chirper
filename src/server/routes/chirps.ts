@@ -35,13 +35,13 @@ router.put('/:id', (req, res) => { // you need the id because you need to know e
     const id = Number(req.params.id);
     const chirpDTO = req.body;
     chirpStore.UpdateChirp(id, chirpDTO);
-    res.status(200).json(`chirp ${id} edited`);
+    res.status(200).json({ msg: `chirp ${id} edited`});
 }) 
 
 router.delete('/:id', (req, res) => {
     const id = Number(req.params.id)
     chirpStore.DeleteChirp(id);
-    res.status(200).json('You are banished to the shadow realm!');
+    res.status(200).json({ msg: 'You are banished to the shadow realm!' });
 })
 
 
