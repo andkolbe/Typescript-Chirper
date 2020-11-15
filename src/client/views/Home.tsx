@@ -1,7 +1,9 @@
 import * as React from 'react';
+import * as moment from 'moment';
+import Layout from '../components/Layout';
 import { Link } from 'react-router-dom'
 import type { IChirp } from '../../server/utils/chirpstore'; // type means only import typescript data instead of compiled javascript. Easier on the system
-import Layout from '../components/Layout';
+
 
 class Home extends React.Component<IHomeProps, IHomeState> { // order is always props, state
 
@@ -27,8 +29,9 @@ class Home extends React.Component<IHomeProps, IHomeState> { // order is always 
                             <div className="card-body">
                                 <h5 className="card-title">{chirp.name}</h5>
                                 <p className="card-text">{chirp.text}</p>
+                                <small className="card-text text-secondary">{moment(chirp.written_at).format('h:mm a - MMMM Do YYYY')}</small>
                                 <div className="d-flex justify-content-end">
-                                    <Link className="btn btn-outline-success" to={`/chirp/${chirp.id}/admin`}>Admin Options</Link>
+                                    <Link className="btn text-success font-weight-bold" to={`/chirp/${chirp.id}/admin`}>Edit Chirp</Link>
                                 </div>
                             </div>
                         </div>

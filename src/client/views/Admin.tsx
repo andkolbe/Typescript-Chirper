@@ -1,7 +1,7 @@
 import * as React from 'react';
+import Layout from '../components/Layout';
 import type { IChirp } from '../../server/utils/chirpstore'; // type means only import typescript data instead of compiled javascript. Easier on the system
 import { RouteComponentProps } from 'react-router';
-import Layout from '../components/Layout';
 
 
 class Admin extends React.Component<IAdminProps, IAdminState> {
@@ -15,7 +15,6 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
     }
 
     async componentDidMount() {
-        
         const res = await fetch(`/api/chirp/${this.props.match.params.id}`); // fetch your list of chirps
         const chirp: IChirp = await res.json(); // parse json to javascript
         this.setState({ name: chirp.name, text: chirp.text }); // sets a new state from name: '', text: '' to name: chirp.name, text: chirp.text
@@ -57,14 +56,14 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
     render() {
         return (
             <Layout>
-                <form className="border p-3 shadow form-group">
-                    <label>Edit Name</label>
-                    <input value={this.state.name} onChange={this.handleNameChange} type="text" className="form-control" />
-                    <label className="mt-4">Edit Message</label>
-                    <input value={this.state.text} onChange={this.handleTextChange} type="text" className="form-control" />
+                <form className="border p-4 shadow form-group bg-white">
+                    <label className="font-weight-bold">Edit Name</label>
+                    <input value={this.state.name} onChange={this.handleNameChange} type="text" className="form-control bg-warning" />
+                    <label className="mt-4 font-weight-bold">Edit Message</label>
+                    <input value={this.state.text} onChange={this.handleTextChange} type="text" className="form-control bg-warning" />
                     <div className="d-flex justify-content-between mt-4">
-                        <button onClick={this.handleEditChirp} className="btn btn-primary">Save Edit</button>
-                        <button onClick={this.handleDeleteChirp} className="btn btn-primary">Delete</button>
+                        <button onClick={this.handleEditChirp} className="btn btn-success font-weight-bold text-white">Save Edit</button>
+                        <button onClick={this.handleDeleteChirp} className="btn text-danger font-weight-bold text-white">Delete</button>
                     </div>
                 </form>
             </Layout>
@@ -73,7 +72,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 }
 
 interface IAdminProps extends RouteComponentProps<{ id: string }> { }
-interface IAdminState {
+interface IAdminState { // identifying your state and props first will help you with intellisence as you write the rest of your code
     name: string;
     text: string;
 }

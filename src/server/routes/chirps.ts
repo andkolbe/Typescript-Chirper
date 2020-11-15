@@ -11,10 +11,11 @@ router.get('/:id?', (req, res) => { // get = read // ? means it's not required /
          // you have to convert your object of objects into an array of objects to manipulate it
             id: Number(key),
             name: data[key].name, // get the data of the name attached to the id: key  
-            text: data[key].text  // get the data of the text attached to the id: key
-    }));
-   
+            text: data[key].text,  // get the data of the text attached to the id: key
+            written_at: data[key].written_at  // get the data of the written_at attached to the id: key
     // const chirps = Object.keys(data).map(key => ({ id: key, ...data[key] })); // can also use this shorthand
+    }));
+    
   
     chirps.pop(); // pops the nextid off the end of the array
    
@@ -27,15 +28,16 @@ router.get('/:id?', (req, res) => { // get = read // ? means it's not required /
 
 router.post('/', (req, res) => { // post = create // networking layer
     const chirpDTO = req.body // best practice to store in variable // req.body is all of the form data
+    chirpDTO['written_at'] = new Date(); // you don't want to do this to the raw data, you want to do this to the representation of it
     chirpStore.CreateChirp(chirpDTO); // data layer // DTO - data transfer object. transfers data from the networking layer to the data layer
-    res.status(200).json({ msg: 'Chirp Added!' });
+    res.status(201).json({ msg: 'Chirp Added!' }); // 201 means created
 }) // test out posts on postman
 
 router.put('/:id', (req, res) => { // you need the id because you need to know exactly which one you are changing. put is a combo of get and post
     const id = Number(req.params.id);
     const chirpDTO = req.body;
     chirpStore.UpdateChirp(id, chirpDTO);
-    res.status(200).json({ msg: `chirp ${id} edited`});
+    res.status(200).json({ msg: `chirp ${id} edited`}); // adding msg here lets you console log it on the front end too
 }) 
 
 router.delete('/:id', (req, res) => {

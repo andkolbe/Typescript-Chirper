@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Admin from './views/Admin';
 import Home from './views/Home';
 import NewChirp from './views/NewChirp';
 import NotFound from './views/NotFound';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component<IAppProps, IAppState> { // order is always props, state
 

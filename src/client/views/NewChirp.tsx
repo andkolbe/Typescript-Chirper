@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { RouteComponentProps} from 'react-router-dom';
 import Layout from '../components/Layout';
+import { RouteComponentProps} from 'react-router-dom';
+import { FaCheck } from 'react-icons/fa';
 
 class NewChirp extends React.Component<INewChirpProps, INewChirpState> {
 
@@ -37,12 +38,12 @@ class NewChirp extends React.Component<INewChirpProps, INewChirpState> {
     render() {
         return (
             <Layout>
-                <form className="form-group border p-3 shadow">
-                    <label>Name</label>
-                    <input value={this.state.name} onChange={this.handleNameChange} type="text" className="form-control" />
-                    <label>Message</label>
-                    <textarea value={this.state.text} onChange={this.handleTextChange} rows={6} className="form-control my-1" />
-                    <button onClick={this.handleChirpSubmit} type="submit" className="btn btn-primary">Submit</button>
+                <form className="form-group border p-4 shadow bg-white">
+                    <label className="font-weight-bold">Name</label>
+                    <input value={this.state.name} onChange={this.handleNameChange} type="text" className="form-control bg-warning" />
+                    <label className="mt-4 font-weight-bold">Message</label>
+                    <textarea value={this.state.text} onChange={this.handleTextChange} rows={6} className="form-control my-1 bg-warning" />
+                    <button onClick={this.handleChirpSubmit} type="submit" className="btn btn-success mt-4 font-weight-bold">Submit<FaCheck className="ml-2"/></button>
                 </form>
             </Layout>
         );
@@ -53,6 +54,5 @@ interface INewChirpProps extends RouteComponentProps{ } // extend RouteComponent
 interface INewChirpState {
     name: string;
     text: string;
-}
-
+} 
 export default NewChirp;

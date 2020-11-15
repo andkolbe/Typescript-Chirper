@@ -20,9 +20,10 @@ export interface IChirp { // each individual chirp
     id: number;
     name: string;
     text: string;
+    written_at: Date;
 }
 
-export interface ChirpData { // the object that holds all of the chirps
+interface ChirpData { // the object that holds all of the chirps
     [key: number]: IChirp; // key-value pair. The key is a number and the value is IRawChirpData
     nextid: number;
 }
