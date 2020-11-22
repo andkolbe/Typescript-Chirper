@@ -8,11 +8,12 @@ const app = express();
 
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.json()); // body parser middleware lets you reference req.body
+app.use(express.json()); // body parser middleware lets the form data be available in req.body
 app.use(express.static('public'));
 app.use('/api', apiRouter); // server side route only meant for accessing data. api routes vs browser routes
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html'))) // this puts the server and the website on the same location
+// server runs from dist/server.js so the file path must connect the the dist file, not the server.ts file
 
 const port = process.env.PORT || 3000; // variable?
 app.listen(port, () => console.log(`Server listening on port: ${port}`));

@@ -8,7 +8,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
 
     constructor(props: IAdminProps) {
         super(props);
-        this.state = {
+        this.state = { // you need name and text for a POST request
             name: '',
             text: ''
         }
@@ -40,7 +40,7 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
         })
         const pepperoni = await res.json(); // fire await this promise 2nd
         console.log(pepperoni.msg); // fire 3rd
-        this.props.history.push('/'); //fire 3rde
+        this.props.history.push('/'); // fire 3rd
     }   
 
     handleDeleteChirp = async (e: React.MouseEvent<HTMLButtonElement>) => { // clicking the mouse is a mouse event
@@ -57,10 +57,10 @@ class Admin extends React.Component<IAdminProps, IAdminState> {
         return (
             <Layout>
                 <form className="border p-4 shadow form-group bg-white">
-                    <label className="font-weight-bold">Edit Name</label>
-                    <input value={this.state.name} onChange={this.handleNameChange} type="text" className="form-control bg-warning" />
-                    <label className="mt-4 font-weight-bold">Edit Message</label>
-                    <input value={this.state.text} onChange={this.handleTextChange} type="text" className="form-control bg-warning" />
+                    <label htmlFor="editName" className="font-weight-bold">Edit Name</label>
+                    <input value={this.state.name} onChange={this.handleNameChange} id="editName" type="text" className="form-control bg-warning" />
+                    <label htmlFor="editMessage" className="mt-4 font-weight-bold">Edit Message</label>
+                    <input value={this.state.text} onChange={this.handleTextChange} id="editMessage" type="text" className="form-control bg-warning" />
                     <div className="d-flex justify-content-between mt-4">
                         <button onClick={this.handleEditChirp} className="btn btn-success font-weight-bold text-white">Save Edit</button>
                         <button onClick={this.handleDeleteChirp} className="btn text-danger font-weight-bold text-white">Delete</button>
